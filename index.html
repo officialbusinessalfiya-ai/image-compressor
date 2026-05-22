@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SQUEEZE — Image Compressor</title>
-
-<!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S4XDR7SV40"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -38,16 +37,72 @@
     overflow-x: hidden;
   }
 
-  /* Subtle dot grid background */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
     background-size: 28px 28px;
     pointer-events: none;
     z-index: 0;
   }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--ink);
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 4px;
+  }
+
+  .nav-link {
+    background: none;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 12px;
+    transition: color 0.15s, background 0.15s;
+    border-radius: 2px;
+  }
+
+  .nav-link:hover { color: var(--ink); background: var(--bg); }
+  .nav-link.active { color: var(--accent); font-weight: 500; }
+
+  /* ── PAGE SHELL ── */
+  .page { display: none; }
+  .page.active { display: block; }
 
   .container {
     position: relative;
@@ -57,7 +112,7 @@
     padding: 40px 24px 80px;
   }
 
-  /* Header */
+  /* ── HOME PAGE ── */
   header { margin-bottom: 48px; }
 
   .logo {
@@ -90,7 +145,6 @@
     font-weight: 500;
   }
 
-  /* Upload Zone */
   .upload-zone {
     border: 2px dashed var(--border);
     background: var(--surface);
@@ -112,10 +166,7 @@
     transition: opacity 0.3s;
   }
 
-  .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--accent);
-  }
-
+  .upload-zone:hover, .upload-zone.drag-over { border-color: var(--accent); }
   .upload-zone:hover::before, .upload-zone.drag-over::before { opacity: 1; }
   .upload-zone.drag-over { background: #fff8f6; }
 
@@ -134,13 +185,7 @@
 
   .upload-zone:hover .upload-icon { border-color: var(--accent); transform: scale(1.05); }
 
-  .upload-icon svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--muted);
-    transition: stroke 0.2s;
-  }
-
+  .upload-icon svg { width: 24px; height: 24px; stroke: var(--muted); transition: stroke 0.2s; }
   .upload-zone:hover .upload-icon svg { stroke: var(--accent); }
 
   .upload-title {
@@ -151,22 +196,11 @@
     margin-bottom: 8px;
   }
 
-  .upload-sub {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
-
-  .upload-sub span {
-    color: var(--accent);
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
+  .upload-sub { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+  .upload-sub span { color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
   #fileInput { display: none; }
 
-  /* Controls */
   .controls {
     margin-top: 32px;
     display: grid;
@@ -192,11 +226,7 @@
     align-items: center;
   }
 
-  .control-label .value {
-    color: var(--accent);
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
+  .control-label .value { color: var(--accent); font-size: 12px; letter-spacing: 1px; }
 
   input[type="range"] {
     -webkit-appearance: none;
@@ -236,14 +266,8 @@
   }
 
   .fmt-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .fmt-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-    font-weight: 500;
-  }
+  .fmt-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
 
-  /* Compress button */
   .compress-btn {
     margin-top: 28px;
     width: 100%;
@@ -276,7 +300,6 @@
   .compress-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
   .compress-btn:disabled::before { display: none; }
 
-  /* Preview & Result */
   .preview-section { margin-top: 40px; display: none; }
 
   .section-label {
@@ -296,10 +319,7 @@
     background: var(--border);
   }
 
-  .compare-panel {
-    background: var(--surface);
-    padding: 20px;
-  }
+  .compare-panel { background: var(--surface); padding: 20px; }
 
   .compare-panel img {
     width: 100%;
@@ -309,26 +329,9 @@
     display: block;
   }
 
-  .panel-meta {
-    margin-top: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
-  .panel-title {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .panel-size {
-    font-size: 18px;
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 1px;
-  }
-
+  .panel-meta { margin-top: 12px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .panel-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+  .panel-size { font-size: 18px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
   .panel-size.original { color: var(--ink); }
   .panel-size.compressed { color: var(--success); }
 
@@ -343,20 +346,8 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   }
 
-  .savings-pct {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .savings-label {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 4px;
-  }
+  .savings-pct { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--accent); line-height: 1; }
+  .savings-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
 
   .download-btn {
     display: inline-flex;
@@ -377,23 +368,9 @@
 
   .download-btn:hover { background: var(--success); color: #fff; }
 
-  /* Progress */
-  .progress-bar {
-    height: 3px;
-    background: var(--border);
-    margin-top: 20px;
-    display: none;
-    overflow: hidden;
-  }
+  .progress-bar { height: 3px; background: var(--border); margin-top: 20px; display: none; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0; background: var(--accent); transition: width 0.4s ease; }
 
-  .progress-fill {
-    height: 100%;
-    width: 0;
-    background: var(--accent);
-    transition: width 0.4s ease;
-  }
-
-  /* File info strip */
   .file-strip {
     background: #fff8f6;
     border: 1px solid var(--border);
@@ -405,59 +382,17 @@
     gap: 16px;
   }
 
-  .file-strip-name {
-    flex: 1;
-    font-size: 12px;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: var(--ink);
-  }
-
+  .file-strip-name { flex: 1; font-size: 12px; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
   .file-strip-size { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
-
-  .clear-btn {
-    background: none;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    transition: color 0.2s;
-    padding: 0 4px;
-  }
-
+  .clear-btn { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; transition: color 0.2s; padding: 0 4px; }
   .clear-btn:hover { color: var(--accent); }
 
-  /* ── Example Section ── */
-  .example-section {
-    margin-top: 56px;
-    padding-top: 32px;
-    border-top: 2px solid var(--border);
-  }
+  /* Example section */
+  .example-section { margin-top: 56px; padding-top: 32px; border-top: 2px solid var(--border); }
+  .example-heading { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: var(--ink); margin-bottom: 6px; }
+  .example-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px; }
 
-  .example-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    letter-spacing: 2px;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-
-  .example-sub {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 28px;
-  }
-
-  .example-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
+  .example-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
   .example-card {
     background: var(--surface);
@@ -467,67 +402,17 @@
     transition: box-shadow 0.2s, transform 0.2s;
   }
 
-  .example-card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
-  }
-
-  .example-thumb {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    display: block;
-    background: var(--bg);
-  }
-
+  .example-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+  .example-thumb { width: 100%; height: 140px; object-fit: cover; display: block; background: var(--bg); }
   .example-body { padding: 14px 16px; }
-
-  .example-name {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--ink);
-    font-weight: 500;
-    margin-bottom: 8px;
-  }
-
-  .example-stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .stat-pill {
-    font-size: 10px;
-    letter-spacing: 1px;
-    color: var(--muted);
-  }
-
-  .stat-pill strong {
-    display: block;
-    font-size: 14px;
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 1px;
-    color: var(--ink);
-  }
-
+  .example-name { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink); font-weight: 500; margin-bottom: 8px; }
+  .example-stats { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .stat-pill { font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+  .stat-pill strong { display: block; font-size: 14px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; color: var(--ink); }
   .stat-pill strong.green { color: var(--success); }
-  .stat-pill strong.red   { color: var(--accent); }
-
-  .example-bar-bg {
-    height: 4px;
-    background: var(--border);
-    border-radius: 0;
-    overflow: hidden;
-  }
-
-  .example-bar-fill {
-    height: 100%;
-    background: var(--success);
-    border-radius: 0;
-    transition: width 1s ease;
-  }
+  .stat-pill strong.red { color: var(--accent); }
+  .example-bar-bg { height: 4px; background: var(--border); overflow: hidden; }
+  .example-bar-fill { height: 100%; background: var(--success); }
 
   .try-btn {
     display: block;
@@ -547,16 +432,438 @@
 
   .try-btn:hover { border-color: var(--accent); color: var(--accent); background: #fff8f6; }
 
+  /* ── SHARED INNER PAGE STYLES ── */
+  .page-hero {
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .page-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 80px);
+    letter-spacing: -1px;
+    line-height: 0.95;
+    color: var(--ink);
+  }
+
+  .page-subtitle {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    line-height: 1.8;
+    max-width: 540px;
+  }
+
+  /* ── ABOUT PAGE ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    margin-bottom: 40px;
+  }
+
+  .about-card {
+    background: var(--surface);
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .about-card-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+
+  .about-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .about-card-text {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    line-height: 1.9;
+  }
+
+  .about-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin-bottom: 40px;
+  }
+
+  .about-stat {
+    background: var(--accent);
+    padding: 28px 20px;
+    text-align: center;
+  }
+
+  .about-stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .about-stat .lbl {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 6px;
+  }
+
+  .about-tech-list {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+  }
+
+  .about-tech-list .tl-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  .tech-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--muted);
+  }
+
+  .tech-item:last-child { border-bottom: none; }
+
+  .tech-item::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── PRIVACY PAGE ── */
+  .privacy-toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin-bottom: 36px;
+  }
+
+  .privacy-toc-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .privacy-toc a {
+    display: block;
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 4px 0;
+    transition: opacity 0.15s;
+  }
+
+  .privacy-toc a:hover { opacity: 0.7; }
+
+  .privacy-section { margin-bottom: 40px; }
+
+  .privacy-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .privacy-text {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    line-height: 2;
+    margin-bottom: 12px;
+  }
+
+  .privacy-highlight {
+    background: #fff8f6;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--success);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 11px;
+    color: var(--success);
+    letter-spacing: 0.5px;
+    line-height: 1.8;
+  }
+
+  .privacy-list {
+    list-style: none;
+    margin: 12px 0;
+  }
+
+  .privacy-list li {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    padding: 6px 0 6px 20px;
+    position: relative;
+    line-height: 1.7;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .privacy-list li:last-child { border-bottom: none; }
+
+  .privacy-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 10px;
+  }
+
+  /* ── CONTACT PAGE ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+
+  .contact-info { }
+
+  .contact-info-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-info-item:first-child { border-top: 1px solid var(--border); }
+
+  .ci-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  .ci-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .ci-value { font-size: 12px; color: var(--ink); letter-spacing: 0.5px; }
+
+  .contact-form { background: var(--surface); border: 1px solid var(--border); padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+
+  .cf-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--ink); margin-bottom: 20px; }
+
+  .cf-field { margin-bottom: 18px; }
+
+  .cf-label { display: block; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+
+  .cf-input, .cf-textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.5px;
+    resize: none;
+  }
+
+  .cf-input:focus, .cf-textarea:focus { border-color: var(--accent); }
+
+  .cf-textarea { height: 100px; }
+
+  .cf-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cf-submit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+
+  .cf-submit:hover::before { transform: translateX(0); }
+  .cf-submit span { position: relative; z-index: 1; }
+
+  .cf-success {
+    display: none;
+    background: #f0fff4;
+    border: 1px solid var(--success);
+    padding: 16px 20px;
+    font-size: 11px;
+    color: var(--success);
+    letter-spacing: 1px;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .faq-section { margin-top: 48px; padding-top: 36px; border-top: 2px solid var(--border); }
+  .faq-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: var(--ink); margin-bottom: 24px; }
+
+  .faq-item { border-bottom: 1px solid var(--border); }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 18px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.15s;
+  }
+
+  .faq-q:hover { color: var(--accent); }
+  .faq-q .arrow { font-size: 16px; transition: transform 0.2s; color: var(--muted); }
+  .faq-item.open .faq-q .arrow { transform: rotate(45deg); color: var(--accent); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    line-height: 1.9;
+  }
+
+  .faq-a-inner { padding-bottom: 18px; }
+  .faq-item.open .faq-a { max-height: 200px; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #fff; letter-spacing: 1px; }
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links button {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .footer-links button:hover { color: var(--accent); }
+
   /* Responsive */
   @media (max-width: 640px) {
-    .controls { grid-template-columns: 1fr; }
-    .compare-grid { grid-template-columns: 1fr; }
+    .controls, .compare-grid, .about-grid, .about-stat-row, .contact-grid, .example-cards { grid-template-columns: 1fr; }
     .savings-pct { font-size: 36px; }
-    .example-cards { grid-template-columns: 1fr; }
+    .nav-links { gap: 0; }
+    .nav-link { padding: 6px 8px; font-size: 9px; }
   }
 </style>
 </head>
 <body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">SQU<span>EE</span>ZE</div>
+    <div class="nav-links">
+      <button class="nav-link active" data-page="home" onclick="showPage('home')">Compress</button>
+      <button class="nav-link" data-page="about" onclick="showPage('about')">About</button>
+      <button class="nav-link" data-page="privacy" onclick="showPage('privacy')">Privacy</button>
+      <button class="nav-link" data-page="contact" onclick="showPage('contact')">Contact</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HOME PAGE
+══════════════════════════════ -->
+<div class="page active" id="page-home">
 <div class="container">
 
   <header>
@@ -565,7 +872,6 @@
     <div class="tag-badge">Client-Side · No Upload · Instant</div>
   </header>
 
-  <!-- Upload Zone -->
   <div class="upload-zone" id="uploadZone">
     <div class="upload-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -579,20 +885,15 @@
 
   <input type="file" id="fileInput" accept="image/*">
 
-  <!-- File strip -->
   <div class="file-strip" id="fileStrip">
     <div class="file-strip-name" id="fileName">—</div>
     <div class="file-strip-size" id="fileSize">—</div>
     <button class="clear-btn" id="clearBtn" title="Remove">✕</button>
   </div>
 
-  <!-- Controls -->
   <div class="controls" id="controls" style="display:none">
     <div class="control-group">
-      <div class="control-label">
-        Quality
-        <span class="value" id="qualityVal">80%</span>
-      </div>
+      <div class="control-label">Quality <span class="value" id="qualityVal">80%</span></div>
       <input type="range" id="quality" min="10" max="100" value="80">
     </div>
     <div class="control-group">
@@ -605,18 +906,14 @@
     </div>
   </div>
 
-  <button class="compress-btn" id="compressBtn">
-    <span>⚡ Compress Image</span>
-  </button>
+  <button class="compress-btn" id="compressBtn"><span>⚡ Compress Image</span></button>
 
   <div class="progress-bar" id="progressBar">
     <div class="progress-fill" id="progressFill"></div>
   </div>
 
-  <!-- Result Preview -->
   <div class="preview-section" id="previewSection">
     <div class="section-label">Before / After</div>
-
     <div class="compare-grid">
       <div class="compare-panel">
         <img id="originalImg" src="" alt="Original">
@@ -633,7 +930,6 @@
         </div>
       </div>
     </div>
-
     <div class="savings-bar">
       <div>
         <div class="savings-pct" id="savingsPct">—</div>
@@ -648,15 +944,13 @@
     </div>
   </div>
 
-  <!-- ── Example Section ── -->
+  <!-- Example Section -->
   <div class="example-section">
     <div class="example-heading">See It In Action</div>
     <div class="example-sub">Real-world compression results at 80% quality → JPEG</div>
-
     <div class="example-cards">
-
       <div class="example-card">
-        <img class="example-thumb" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=90" alt="Mountain landscape">
+        <img class="example-thumb" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=90" alt="Mountain">
         <div class="example-body">
           <div class="example-name">Mountain Photo</div>
           <div class="example-stats">
@@ -664,15 +958,12 @@
             <div class="stat-pill">After<strong class="green">310 KB</strong></div>
             <div class="stat-pill">Saved<strong class="green">87%</strong></div>
           </div>
-          <div class="example-bar-bg">
-            <div class="example-bar-fill" style="width:87%"></div>
-          </div>
+          <div class="example-bar-bg"><div class="example-bar-fill" style="width:87%"></div></div>
           <button class="try-btn" onclick="document.getElementById('uploadZone').scrollIntoView({behavior:'smooth'})">Try with your own →</button>
         </div>
       </div>
-
       <div class="example-card">
-        <img class="example-thumb" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=90" alt="Portrait photo">
+        <img class="example-thumb" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=90" alt="Portrait">
         <div class="example-body">
           <div class="example-name">Portrait Shot</div>
           <div class="example-stats">
@@ -680,15 +971,12 @@
             <div class="stat-pill">After<strong class="green">480 KB</strong></div>
             <div class="stat-pill">Saved<strong class="green">88%</strong></div>
           </div>
-          <div class="example-bar-bg">
-            <div class="example-bar-fill" style="width:88%"></div>
-          </div>
+          <div class="example-bar-bg"><div class="example-bar-fill" style="width:88%"></div></div>
           <button class="try-btn" onclick="document.getElementById('uploadZone').scrollIntoView({behavior:'smooth'})">Try with your own →</button>
         </div>
       </div>
-
       <div class="example-card">
-        <img class="example-thumb" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&q=90" alt="City skyline">
+        <img class="example-thumb" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&q=90" alt="City">
         <div class="example-body">
           <div class="example-name">City Skyline</div>
           <div class="example-stats">
@@ -696,67 +984,332 @@
             <div class="stat-pill">After<strong class="green">390 KB</strong></div>
             <div class="stat-pill">Saved<strong class="green">89%</strong></div>
           </div>
-          <div class="example-bar-bg">
-            <div class="example-bar-fill" style="width:89%"></div>
-          </div>
+          <div class="example-bar-bg"><div class="example-bar-fill" style="width:89%"></div></div>
           <button class="try-btn" onclick="document.getElementById('uploadZone').scrollIntoView({behavior:'smooth'})">Try with your own →</button>
         </div>
       </div>
-
     </div>
   </div>
-  <!-- end example section -->
 
 </div>
+</div>
+
+<!-- ══════════════════════════════
+     ABOUT PAGE
+══════════════════════════════ -->
+<div class="page" id="page-about">
+<div class="container">
+
+  <div class="page-hero">
+    <div class="page-eyebrow">About Squeeze</div>
+    <div class="page-title">Built for<br>Speed &amp; Privacy</div>
+    <div class="page-subtitle">Squeeze is a free, browser-based image compressor. No servers. No accounts. No nonsense. Your images never leave your device.</div>
+  </div>
+
+  <div class="about-stat-row">
+    <div class="about-stat">
+      <div class="num">0</div>
+      <div class="lbl">Bytes sent to any server</div>
+    </div>
+    <div class="about-stat" style="background:var(--ink)">
+      <div class="num">3</div>
+      <div class="lbl">Output formats supported</div>
+    </div>
+    <div class="about-stat" style="background:var(--accent2)">
+      <div class="num">90%</div>
+      <div class="lbl">Typical size reduction</div>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-card-icon">🔒</div>
+      <div class="about-card-title">100% Private</div>
+      <div class="about-card-text">All compression happens directly in your browser using the Canvas API. Your image is never transmitted over the internet or stored anywhere outside your device.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">⚡</div>
+      <div class="about-card-title">Instant Results</div>
+      <div class="about-card-text">There's no waiting for a server response. Compression runs at native browser speed, typically completing in under a second even for large images.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🎛️</div>
+      <div class="about-card-title">Full Control</div>
+      <div class="about-card-text">Dial in exactly the quality vs. file-size trade-off you need. Output to JPG for photos, PNG for graphics, or WebP for next-gen web delivery.</div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🌐</div>
+      <div class="about-card-title">No Install Needed</div>
+      <div class="about-card-text">Works in any modern browser on desktop or mobile. No plugins, no extensions, no app downloads. Just open and compress.</div>
+    </div>
+  </div>
+
+  <div class="about-tech-list">
+    <div class="tl-title">How It Works</div>
+    <div class="tech-item">You select or drop an image — it's read locally using the FileReader API.</div>
+    <div class="tech-item">The image is drawn onto an off-screen HTML5 Canvas element.</div>
+    <div class="tech-item">canvas.toBlob() re-encodes the image at your chosen quality and format.</div>
+    <div class="tech-item">The resulting Blob is converted to an object URL and offered as a download.</div>
+    <div class="tech-item">Zero network requests are made at any point during this process.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════
+     PRIVACY PAGE
+══════════════════════════════ -->
+<div class="page" id="page-privacy">
+<div class="container">
+
+  <div class="page-hero">
+    <div class="page-eyebrow">Privacy Policy</div>
+    <div class="page-title">We Collect<br>Nothing</div>
+    <div class="page-subtitle">Last updated: May 2026. This policy describes how Squeeze handles your data — the short answer is: it doesn't.</div>
+  </div>
+
+  <div class="privacy-toc">
+    <div class="privacy-toc-title">Contents</div>
+    <a href="#" onclick="scrollToId('priv-data')">1. Data We Collect</a>
+    <a href="#" onclick="scrollToId('priv-images')">2. Your Images</a>
+    <a href="#" onclick="scrollToId('priv-cookies')">3. Cookies &amp; Tracking</a>
+    <a href="#" onclick="scrollToId('priv-third')">4. Third Parties</a>
+    <a href="#" onclick="scrollToId('priv-children')">5. Children's Privacy</a>
+    <a href="#" onclick="scrollToId('priv-changes')">6. Changes to This Policy</a>
+    <a href="#" onclick="scrollToId('priv-contact')">7. Contact</a>
+  </div>
+
+  <div class="privacy-section" id="priv-data">
+    <div class="privacy-section-title">1. Data We Collect</div>
+    <div class="privacy-highlight">✓ Squeeze collects no personal data of any kind. There is no account system, no login, and no analytics.</div>
+    <div class="privacy-text">Squeeze runs entirely in your browser. There is no backend server processing your requests, no database storing your activity, and no logging of any kind.</div>
+  </div>
+
+  <div class="privacy-section" id="priv-images">
+    <div class="privacy-section-title">2. Your Images</div>
+    <div class="privacy-text">Images you upload to Squeeze are processed exclusively on your own device using browser-native APIs (FileReader, HTMLCanvasElement). They are:</div>
+    <ul class="privacy-list">
+      <li>Never transmitted to any server or third party</li>
+      <li>Never stored in local storage, IndexedDB, or any persistent browser storage</li>
+      <li>Held in temporary memory only for the duration of the compression operation</li>
+      <li>Immediately eligible for garbage collection once you close the tab or navigate away</li>
+    </ul>
+  </div>
+
+  <div class="privacy-section" id="priv-cookies">
+    <div class="privacy-section-title">3. Cookies &amp; Tracking</div>
+    <div class="privacy-text">Squeeze sets no cookies and uses no tracking scripts, pixels, or fingerprinting techniques. There is no analytics library, no advertising SDK, and no session tracking of any kind.</div>
+    <div class="privacy-highlight">✓ No cookies. No trackers. No fingerprinting. Ever.</div>
+  </div>
+
+  <div class="privacy-section" id="priv-third">
+    <div class="privacy-section-title">4. Third Parties</div>
+    <div class="privacy-text">Squeeze loads fonts from Google Fonts (fonts.googleapis.com) and example images from Unsplash (images.unsplash.com). These requests are made by your browser directly to those services and are subject to their respective privacy policies. No image data you upload is shared with these services.</div>
+  </div>
+
+  <div class="privacy-section" id="priv-children">
+    <div class="privacy-section-title">5. Children's Privacy</div>
+    <div class="privacy-text">Squeeze does not collect any data from anyone, including children under the age of 13. Because no personal information is collected at any point, Squeeze is inherently compliant with COPPA and similar regulations.</div>
+  </div>
+
+  <div class="privacy-section" id="priv-changes">
+    <div class="privacy-section-title">6. Changes to This Policy</div>
+    <div class="privacy-text">If this policy changes, the updated version will be posted here with a revised "last updated" date. Because we collect no data, any changes are unlikely to affect you in any meaningful way.</div>
+  </div>
+
+  <div class="privacy-section" id="priv-contact">
+    <div class="privacy-section-title">7. Contact</div>
+    <div class="privacy-text">If you have questions about this privacy policy, please reach out via the <span style="color:var(--accent);cursor:pointer" onclick="showPage('contact')">Contact page</span>.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════
+     CONTACT PAGE
+══════════════════════════════ -->
+<div class="page" id="page-contact">
+<div class="container">
+
+  <div class="page-hero">
+    <div class="page-eyebrow">Get In Touch</div>
+    <div class="page-title">We'd Love<br>To Hear You</div>
+    <div class="page-subtitle">Have a feature request, spotted a bug, or just want to say hello? Drop us a message and we'll get back to you within 48 hours.</div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-info-item">
+        <div class="ci-icon">✉</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value">officialbusinessalfiya@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-icon">⏱</div>
+        <div>
+          <div class="ci-label">Response Time</div>
+          <div class="ci-value">Within 48 hours</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="ci-icon">🌍</div>
+        <div>
+          <div class="ci-label">Available</div>
+          <div class="ci-value">Worldwide</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="cf-title">Send a Message</div>
+      <div class="cf-field">
+        <label class="cf-label">Your Name</label>
+        <input class="cf-input" type="text" id="cfName" placeholder="Jane Smith">
+      </div>
+      <div class="cf-field">
+        <label class="cf-label">Email Address</label>
+        <input class="cf-input" type="email" id="cfEmail" placeholder="jane@example.com">
+      </div>
+      <div class="cf-field">
+        <label class="cf-label">Subject</label>
+        <input class="cf-input" type="text" id="cfSubject" placeholder="Feature request / Bug / Other">
+      </div>
+      <div class="cf-field">
+        <label class="cf-label">Message</label>
+        <textarea class="cf-textarea" id="cfMessage" placeholder="Tell us what's on your mind…"></textarea>
+      </div>
+      <button class="cf-submit" onclick="submitContact()"><span>Send Message →</span></button>
+      <div class="cf-success" id="cfSuccess">✓ Message sent! We'll be in touch within 48 hours.</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="faq-title">Frequently Asked Questions</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is Squeeze really free? <span class="arrow">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes, completely. Squeeze has no paid plans, no premium tier, and no hidden fees. Because there are no servers to run, there are no costs to pass on to you.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What's the maximum file size I can compress? <span class="arrow">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">There's no hard limit imposed by Squeeze. The practical limit is determined by your device's available memory. Most modern browsers handle images up to several hundred megabytes without issue.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Does compression reduce image dimensions? <span class="arrow">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">No. Squeeze preserves the original pixel dimensions. Only the file size is reduced by adjusting compression quality. If you need to resize, you can do so in your photo editor before compressing.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Which format should I choose — JPG, PNG, or WebP? <span class="arrow">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Use JPG for photos and rich images (best compression). Use PNG for graphics, logos, or anything needing transparency. Use WebP for web use — it offers better quality than JPG at smaller file sizes, supported by all modern browsers.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I compress multiple images at once? <span class="arrow">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Currently Squeeze processes one image at a time. Batch compression is on the roadmap — reach out via this page if it's important to you and we'll prioritise it.</div></div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">SQU<span>EE</span>ZE</div>
+    <div style="font-size:9px;letter-spacing:2px;">© 2026 · All compression happens in your browser</div>
+    <div class="footer-links">
+      <button onclick="showPage('about')">About</button>
+      <button onclick="showPage('privacy')">Privacy</button>
+      <button onclick="showPage('contact')">Contact</button>
+    </div>
+  </div>
+</footer>
 
 <script>
-  const uploadZone   = document.getElementById('uploadZone');
-  const fileInput    = document.getElementById('fileInput');
-  const browseBtn    = document.getElementById('browseBtn');
-  const fileStrip    = document.getElementById('fileStrip');
-  const fileName     = document.getElementById('fileName');
-  const fileSize     = document.getElementById('fileSize');
-  const clearBtn     = document.getElementById('clearBtn');
-  const controls     = document.getElementById('controls');
-  const compressBtn  = document.getElementById('compressBtn');
-  const qualitySlider= document.getElementById('quality');
-  const qualityVal   = document.getElementById('qualityVal');
-  const progressBar  = document.getElementById('progressBar');
-  const progressFill = document.getElementById('progressFill');
-  const previewSection = document.getElementById('previewSection');
-  const originalImg  = document.getElementById('originalImg');
-  const compressedImg= document.getElementById('compressedImg');
-  const originalSize = document.getElementById('originalSize');
-  const compressedSize=document.getElementById('compressedSize');
-  const savingsPct   = document.getElementById('savingsPct');
-  const downloadBtn  = document.getElementById('downloadBtn');
+  /* ── PAGE ROUTING ── */
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.classList.toggle('active', l.dataset.page === id);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  let currentFile = null;
-  let selectedFormat = 'image/jpeg';
-  let originalBytes = 0;
+  function scrollToId(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ── FAQ ACCORDION ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+
+  /* ── CONTACT FORM ── */
+  function submitContact() {
+    const name    = document.getElementById('cfName').value.trim();
+    const email   = document.getElementById('cfEmail').value.trim();
+    const message = document.getElementById('cfMessage').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email and message.');
+      return;
+    }
+    document.getElementById('cfSuccess').style.display = 'block';
+    ['cfName','cfEmail','cfSubject','cfMessage'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  /* ── IMAGE COMPRESSOR ── */
+  const uploadZone    = document.getElementById('uploadZone');
+  const fileInput     = document.getElementById('fileInput');
+  const browseBtn     = document.getElementById('browseBtn');
+  const fileStrip     = document.getElementById('fileStrip');
+  const fileName      = document.getElementById('fileName');
+  const fileSize      = document.getElementById('fileSize');
+  const clearBtn      = document.getElementById('clearBtn');
+  const controls      = document.getElementById('controls');
+  const compressBtn   = document.getElementById('compressBtn');
+  const qualitySlider = document.getElementById('quality');
+  const qualityVal    = document.getElementById('qualityVal');
+  const progressBar   = document.getElementById('progressBar');
+  const progressFill  = document.getElementById('progressFill');
+  const previewSection= document.getElementById('previewSection');
+  const originalImg   = document.getElementById('originalImg');
+  const compressedImg = document.getElementById('compressedImg');
+  const originalSize  = document.getElementById('originalSize');
+  const compressedSize= document.getElementById('compressedSize');
+  const savingsPct    = document.getElementById('savingsPct');
+  const downloadBtn   = document.getElementById('downloadBtn');
+
+  let currentFile = null, selectedFormat = 'image/jpeg', originalBytes = 0;
 
   function formatBytes(b) {
     if (b < 1024) return b + ' B';
-    if (b < 1024*1024) return (b/1024).toFixed(1)+' KB';
-    return (b/(1024*1024)).toFixed(2)+' MB';
+    if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+    return (b/1048576).toFixed(2) + ' MB';
   }
 
   uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
   uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
   uploadZone.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadZone.classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) loadFile(file);
+    e.preventDefault(); uploadZone.classList.remove('drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f && f.type.startsWith('image/')) loadFile(f);
   });
-
   uploadZone.addEventListener('click', () => fileInput.click());
   browseBtn.addEventListener('click', e => { e.stopPropagation(); fileInput.click(); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
 
   clearBtn.addEventListener('click', () => {
-    currentFile = null;
-    fileInput.value = '';
+    currentFile = null; fileInput.value = '';
     fileStrip.style.display = 'none';
     controls.style.display = 'none';
     compressBtn.style.display = 'none';
@@ -764,9 +1317,7 @@
     progressBar.style.display = 'none';
   });
 
-  qualitySlider.addEventListener('input', () => {
-    qualityVal.textContent = qualitySlider.value + '%';
-  });
+  qualitySlider.addEventListener('input', () => { qualityVal.textContent = qualitySlider.value + '%'; });
 
   document.querySelectorAll('.fmt-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -777,20 +1328,16 @@
   });
 
   function loadFile(file) {
-    currentFile = file;
-    originalBytes = file.size;
+    currentFile = file; originalBytes = file.size;
     fileName.textContent = file.name;
     fileSize.textContent = formatBytes(file.size);
     fileStrip.style.display = 'flex';
     controls.style.display = 'grid';
     compressBtn.style.display = 'block';
     previewSection.style.display = 'none';
-    uploadZone.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  compressBtn.addEventListener('click', compressImage);
-
-  function compressImage() {
+  compressBtn.addEventListener('click', () => {
     if (!currentFile) return;
     compressBtn.disabled = true;
     progressBar.style.display = 'block';
@@ -803,23 +1350,20 @@
       img.onload = () => {
         progressFill.style.width = '60%';
         const canvas = document.createElement('canvas');
-        canvas.width  = img.naturalWidth;
-        canvas.height = img.naturalHeight;
+        canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
         canvas.getContext('2d').drawImage(img, 0, 0);
 
-        const quality = parseInt(qualitySlider.value) / 100;
-        const fmt = selectedFormat;
-        const q   = fmt === 'image/png' ? undefined : quality;
+        const q = selectedFormat === 'image/png' ? undefined : parseInt(qualitySlider.value) / 100;
 
         canvas.toBlob(blob => {
           progressFill.style.width = '90%';
           const url = URL.createObjectURL(blob);
-          const ext = fmt === 'image/jpeg' ? 'jpg' : fmt === 'image/png' ? 'png' : 'webp';
+          const ext = selectedFormat === 'image/jpeg' ? 'jpg' : selectedFormat === 'image/png' ? 'png' : 'webp';
           const base = currentFile.name.replace(/\.[^/.]+$/, '');
 
-          originalImg.src   = e.target.result;
+          originalImg.src = e.target.result;
           compressedImg.src = url;
-          originalSize.textContent   = formatBytes(originalBytes);
+          originalSize.textContent = formatBytes(originalBytes);
           compressedSize.textContent = formatBytes(blob.size);
 
           const saved = (originalBytes - blob.size) / originalBytes * 100;
@@ -838,12 +1382,12 @@
               compressBtn.disabled = false;
             }, 300);
           }, 200);
-        }, fmt, q);
+        }, selectedFormat, q);
       };
       img.src = e.target.result;
     };
     reader.readAsDataURL(currentFile);
-  }
+  });
 </script>
 </body>
 </html>
